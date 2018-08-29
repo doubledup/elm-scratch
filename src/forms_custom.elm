@@ -2,7 +2,7 @@ module Main exposing (..)
 
 import Browser
 import Html exposing (Html, div, input, label, text, button)
-import Html.Attributes exposing (value, type_, style, pattern)
+import Html.Attributes exposing (value, type_, style, pattern, placeholder)
 import Html.Events exposing (onInput, onClick)
 import List
 import Regex exposing (fromString, contains)
@@ -84,7 +84,7 @@ view model =
 labelledInput labelText inputHandler inputType inputValue =
     div []
         [ label [] [ text labelText ]
-        , input [ onInput inputHandler, type_ inputType, value inputValue ] []
+        , input [ onInput inputHandler, type_ inputType, value inputValue, placeholder labelText ] []
         ]
 
 
