@@ -1,12 +1,13 @@
-module Main exposing (..)
+module Main exposing (Model, Msg(..), init, main, update, view)
 
+import Browser
 import Html exposing (Html, button, div, text)
 import Html.Events exposing (onClick)
 
 
-main : Platform.Program Basics.Never Model Msg
+main : Platform.Program () Model Msg
 main =
-    Html.beginnerProgram { model = model, view = view, update = update }
+    Browser.sandbox { init = init, view = view, update = update }
 
 
 
@@ -17,8 +18,8 @@ type alias Model =
     Int
 
 
-model : Model
-model =
+init : Model
+init =
     0
 
 
@@ -54,9 +55,10 @@ view model =
     div []
         [ div []
             [ button [ onClick Increment ] [ text "+" ]
-            , div [] [ text (toString model) ]
+            , div [] [ text (String.fromInt model) ]
             , button [ onClick Decrement ] [ text "-" ]
             ]
         , div []
-            [ button [ onClick Reset ] [ text "Back to 0" ] ]
+            [ button [ onClick Reset ] [ text "Back to 0" ]
+            ]
         ]
