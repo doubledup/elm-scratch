@@ -27,19 +27,23 @@ main =
 
 type alias Model =
     { topic : String
-    , url : String
     , errorMessage : String
+    , image : Image
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
     ( { topic = "cats"
-      , url = "waiting.gif"
       , errorMessage = ""
+      , image = { url = "waiting.gif", title = "Le title", caption = "Ze caption" }
       }
     , getRandomGif "cat"
     )
+
+
+type alias Image =
+    { url : String, title : String, caption : String }
 
 
 
@@ -48,7 +52,7 @@ init _ =
 
 type Msg
     = MorePlease
-    | NewGif (Result Http.Error String)
+    | NewGif (Result Http.Error Image)
     | SetTopic String
     | PresetTopic String
 
@@ -63,8 +67,15 @@ update msg model =
 
         NewGif result ->
             case result of
-                Ok newUrl ->
-                    ( { model | url = newUrl, errorMessage = "" }
+                Ok image ->
+                    ( { model
+                        | image =
+                            { url = image.url
+                            , caption = image.caption
+                            , title = image.title
+                            }
+                        , errorMessage = ""
+                      }
                     , Cmd.none
                     )
 
@@ -117,7 +128,9 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     div []
-        [ h2 [] [ text ("GIF finder for: " ++ model.topic) ]
+        [ h1 [] [ text ("GIF finder for: " ++ model.topic) ]
+        , br [] []
+        , label [] [ text model.errorMessage ]
         , br [] []
         , label [] [ text "Topic" ]
         , input [ onInput SetTopic, value model.topic ] []
@@ -127,9 +140,11 @@ view model =
             ]
         , button [ onClick MorePlease ] [ text "More Please!" ]
         , br [] []
-        , img [ src model.url ] []
+        , h3 [] [ text model.image.title ]
         , br [] []
-        , label [] [ text model.errorMessage ]
+        , img [ src model.image.url ] []
+        , br [] []
+        , label [] [ text model.image.caption ]
         ]
 
 
@@ -151,6 +166,18 @@ toGiphyUrl topic =
         ]
 
 
-gifDecoder : Decode.Decoder String
+gifDecoder : Decode.Decoder Image
 gifDecoder =
-    Decode.field "data" (Decode.field "image_url" Decode.string)
+    Decode.map3 Image
+        (Decode.field
+            "data"
+            (Decode.field "image_url" Decode.string)
+        )
+        (Decode.field
+            "data"
+            (Decode.field "title" Decode.string)
+        )
+        (Decode.field
+            "data"
+            (Decode.field "caption" Decode.string)
+        )
