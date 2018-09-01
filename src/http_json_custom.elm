@@ -28,12 +28,16 @@ main =
 type alias Model =
     { topic : String
     , url : String
+    , errorMessage : String
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model "cat" "waiting.gif"
+    ( { topic = "cat"
+      , url = "waiting.gif"
+      , errorMessage = ""
+      }
     , getRandomGif "cat"
     )
 
@@ -58,14 +62,35 @@ update msg model =
         NewGif result ->
             case result of
                 Ok newUrl ->
-                    ( { model | url = newUrl }
+                    ( { model | url = newUrl, errorMessage = "" }
                     , Cmd.none
                     )
 
-                Err _ ->
-                    ( model
+                Err message ->
+                    ( { model | errorMessage = humanMessage message }
                     , Cmd.none
                     )
+
+
+humanMessage : Http.Error -> String
+humanMessage err =
+    case err of
+        Http.BadUrl url ->
+            "Got a bad URL: " ++ url
+
+        Http.Timeout ->
+            "Took too long to find the next gif"
+
+        Http.NetworkError ->
+            "Something's up with the network :'("
+
+        Http.BadStatus response ->
+            "Server sent a bad status: "
+                ++ (response.status.code |> String.fromInt)
+                ++ response.status.message
+
+        Http.BadPayload message _ ->
+            "Data from the server made no sense. " ++ message
 
 
 
@@ -88,6 +113,8 @@ view model =
         , button [ onClick MorePlease ] [ text "More Please!" ]
         , br [] []
         , img [ src model.url ] []
+        , br [] []
+        , label [] [ text model.errorMessage ]
         ]
 
 
