@@ -34,7 +34,7 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { topic = "cat"
+    ( { topic = "cats"
       , url = "waiting.gif"
       , errorMessage = ""
       }
