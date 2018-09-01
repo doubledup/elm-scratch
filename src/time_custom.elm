@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Browser
 import Html exposing (..)
+import Html.Events exposing (onClick)
 import Task
 import Time
 
@@ -25,12 +26,13 @@ main =
 type alias Model =
     { zone : Time.Zone
     , time : Time.Posix
+    , tick : Bool
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model Time.utc (Time.millisToPosix 0)
+    ( Model Time.utc (Time.millisToPosix 0) True
     , Task.perform AdjustTimeZone Time.here
     )
 
@@ -42,6 +44,7 @@ init _ =
 type Msg
     = Tick Time.Posix
     | AdjustTimeZone Time.Zone
+    | ToggleTick
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -57,6 +60,11 @@ update msg model =
             , Cmd.none
             )
 
+        ToggleTick ->
+            ( { model | tick = not model.tick }
+            , Cmd.none
+            )
+
 
 
 -- SUBSCRIPTIONS
@@ -64,7 +72,10 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Time.every 1000 Tick
+    if model.tick then
+        Time.every 1000 Tick
+    else
+        Sub.none
 
 
 
@@ -89,4 +100,7 @@ view model =
                 |> String.fromInt
                 |> String.padLeft 2 '0'
     in
-        h1 [] [ text (hour ++ ":" ++ minute ++ ":" ++ second) ]
+        div []
+            [ h1 [] [ text (hour ++ ":" ++ minute ++ ":" ++ second) ]
+            , button [ onClick ToggleTick ] [ text "Toggle clock" ]
+            ]
