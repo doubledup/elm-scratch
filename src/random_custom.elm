@@ -109,16 +109,17 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     div []
-        [ h1 [] [ text (String.fromInt model.dieFace) ]
-        , button [ onClick StartRoll ] [ text "Roll" ]
+        [ button [ onClick StartRoll ] [ text "Roll" ]
         , div []
             [ h3 [] [ text "Fair die" ]
+            , h1 [] [ text (String.fromInt model.dieFace) ]
             , img
                 [ src ("https://wpclipart.com/recreation/games/dice/die_face_" ++ (String.fromInt model.dieFace) ++ ".png"), height 100, width 130 ]
                 []
             ]
         , div []
             [ h3 [] [ text "Weighted die" ]
+            , h1 [] [ text (String.fromInt model.weightedDieFace) ]
             , img
                 [ src ("https://wpclipart.com/recreation/games/dice/die_face_" ++ (String.fromInt model.weightedDieFace) ++ ".png"), height 100, width 130 ]
                 []
