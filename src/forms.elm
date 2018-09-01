@@ -6,7 +6,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 
 
-
 -- MAIN
 
 
@@ -76,6 +75,5 @@ viewValidation : Model -> Html msg
 viewValidation model =
     if model.password == model.passwordAgain then
         div [ style "color" "green" ] [ text "OK" ]
-
     else
         div [ style "color" "red" ] [ text "Passwords do not match!" ]
