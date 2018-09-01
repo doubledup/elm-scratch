@@ -113,11 +113,11 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     div []
-        [ h2 [] [ text model.topic ]
-        , button [ onClick MorePlease ] [ text "More Please!" ]
+        [ h2 [] [ text ("GIF finder for: " ++ model.topic) ]
         , br [] []
         , label [] [ text "Topic" ]
-        , input [ onInput SetTopic, value model.topic ] []
+        , input [ id "topic", onInput SetTopic, value model.topic ] []
+        , button [ onClick MorePlease, for "topic" ] [ text "More Please!" ]
         , br [] []
         , img [ src model.url ] []
         , br [] []
