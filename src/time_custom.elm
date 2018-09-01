@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Browser
 import Html exposing (..)
+import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
 import Task
 import Time
@@ -101,6 +102,11 @@ view model =
                 |> String.padLeft 2 '0'
     in
         div []
-            [ h1 [] [ text (hour ++ ":" ++ minute ++ ":" ++ second) ]
+            [ h1
+                [ style "background-color" "red"
+                , style "height" "50px"
+                , style "width" "150px"
+                ]
+                [ text (hour ++ ":" ++ minute ++ ":" ++ second) ]
             , button [ onClick ToggleTick ] [ text "Toggle clock" ]
             ]
