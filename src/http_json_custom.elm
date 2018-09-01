@@ -134,10 +134,9 @@ view model =
         , br [] []
         , label [] [ text "Topic" ]
         , input [ onInput SetTopic, value model.topic ] []
-        , select []
-            [ option [ onClick (PresetTopic "cats") ] [ text "cats" ]
-            , option [ onClick (PresetTopic "memes") ] [ text "memes" ]
-            ]
+        , select
+            [ on "change" (Decode.map PresetTopic Html.Events.targetValue) ]
+            (generateOptions [ "cats", "memes" ])
         , button [ onClick MorePlease ] [ text "More Please!" ]
         , br [] []
         , h3 [] [ text model.image.title ]
@@ -146,6 +145,10 @@ view model =
         , br [] []
         , label [] [ text model.image.caption ]
         ]
+
+
+generateOptions =
+    List.map (\str -> option [ value str ] [ text str ])
 
 
 
