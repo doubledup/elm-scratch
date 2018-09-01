@@ -50,6 +50,7 @@ type Msg
     = MorePlease
     | NewGif (Result Http.Error String)
     | SetTopic String
+    | PresetTopic String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -74,6 +75,9 @@ update msg model =
 
         SetTopic newTopic ->
             ( { model | topic = newTopic }, Cmd.none )
+
+        PresetTopic newTopic ->
+            ( { model | topic = newTopic }, getRandomGif newTopic )
 
 
 humanMessage : Http.Error -> String
@@ -116,8 +120,12 @@ view model =
         [ h2 [] [ text ("GIF finder for: " ++ model.topic) ]
         , br [] []
         , label [] [ text "Topic" ]
-        , input [ id "topic", onInput SetTopic, value model.topic ] []
-        , button [ onClick MorePlease, for "topic" ] [ text "More Please!" ]
+        , input [ onInput SetTopic, value model.topic ] []
+        , select []
+            [ option [ onClick (PresetTopic "cats") ] [ text "cats" ]
+            , option [ onClick (PresetTopic "memes") ] [ text "memes" ]
+            ]
+        , button [ onClick MorePlease ] [ text "More Please!" ]
         , br [] []
         , img [ src model.url ] []
         , br [] []
