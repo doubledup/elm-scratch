@@ -2,7 +2,7 @@
     "name": "Cats and Memes",
     "repository": "https://github.com/doubledup/elm-scratch",
     "env": {
-        "ELM_COMPILE": "elm make src/http_json_custom.elm --output=public/js/main.js --optimize"
+        "ELM_COMPILE": "bin/build"
     },
     "buildpacks": [
         {
