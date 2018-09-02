@@ -1,0 +1,15 @@
+{
+    "name": "Cats and Memes",
+    "repository": "https://github.com/doubledup/elm-scratch",
+    "env": {
+        "ELM_COMPILE": "elm make src/http_json_custom.elm --output=public/js/main.js --optimize"
+    },
+    "buildpacks": [
+        {
+            "url": "https://github.com/srid/heroku-buildpack-elm.git"
+        },
+        {
+            "url": "https://github.com/hone/heroku-buildpack-static"
+        }
+    ]
+}
