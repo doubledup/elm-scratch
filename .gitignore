@@ -2,6 +2,4 @@ elm.js
 elm-stuff/
 index.html
 node_modules/
-public/css
-public/images
-public/js
+public/app.js

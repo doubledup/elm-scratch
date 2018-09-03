@@ -29,7 +29,10 @@ module.exports = {
         test: /\.elm$/,
         exclude: [/node_modules/, /elm-stuff/],
         use: {
-          loader: 'elm-webpack-loader'
+          loader: 'elm-webpack-loader',
+          options: {
+            optimize: true
+          }
         }
       }
     ],
