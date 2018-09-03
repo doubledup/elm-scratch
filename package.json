@@ -2,9 +2,10 @@
   "name": "elm-tutorial",
   "version": "1.0.0",
   "description": "Cats and Memes",
-  "main": "index.js",
+  "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,8 @@
     "node": "8.11.3"
   },
   "dependencies": {
-    "elm": "^0.19.0-bugfix2"
+    "elm": "^0.19.0-bugfix2",
+    "elm-webpack-loader": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^5.5.0",
@@ -28,6 +30,8 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.0",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.0",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
   }
 }
