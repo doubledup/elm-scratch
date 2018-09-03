@@ -2,10 +2,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    app: [
-      './public/js/main.js',
-      './src/Main.elm'
-    ]
+    app: './public/index.js'
   },
   output: {
     filename: 'main.js',
