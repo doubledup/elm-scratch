@@ -4,8 +4,8 @@ module.exports = {
   entry: './public/index.js',
 
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'public/js')
+    filename: 'app.js',
+    path: path.join(__dirname, 'public')
   },
 
   resolve: {

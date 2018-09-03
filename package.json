@@ -4,7 +4,7 @@
   "description": "Cats and Memes",
   "main": "",
   "scripts": {
-    "build": "webpack"
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
   "dependencies": {
     "elm": "^0.19.0-bugfix2",
     "elm-webpack-loader": "^5.0.0",
-    "file-loader": "^2.0.0"
+    "file-loader": "^2.0.0",
+    "webpack": "^4.17.1"
   },
   "devDependencies": {
     "eslint": "^5.5.0",
@@ -31,7 +32,6 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-standard": "^4.0.0",
-    "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0"
   }
 }
