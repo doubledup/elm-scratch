@@ -1,4 +1,4 @@
-module Main exposing (..)
+module Main exposing (Image, Model, Msg(..), generateOptions, getRandomGif, gifDecoder, humanMessage, init, main, onKeyUp, subscriptions, toGiphyUrl, update, view)
 
 import Browser
 import Html exposing (..)
@@ -7,6 +7,7 @@ import Html.Events exposing (..)
 import Http
 import Json.Decode as Decode
 import Url.Builder as Url
+
 
 
 -- MAIN
@@ -133,7 +134,19 @@ view model =
         , label [] [ text model.errorMessage ]
         , br [] []
         , label [] [ text "Topic" ]
-        , input [ onInput SetTopic, value model.topic ] []
+        , input
+            [ onKeyUp
+                (\key ->
+                    if key == 13 then
+                        MorePlease
+
+                    else
+                        SetTopic model.topic
+                )
+            , onInput SetTopic
+            , value model.topic
+            ]
+            []
         , select
             [ on "change" (Decode.map PresetTopic Html.Events.targetValue) ]
             (generateOptions [ "cats", "memes" ])
@@ -184,3 +197,8 @@ gifDecoder =
             "data"
             (Decode.field "caption" Decode.string)
         )
+
+
+onKeyUp : (Int -> Msg) -> Attribute Msg
+onKeyUp tagger =
+    on "keyup" (Decode.map tagger keyCode)
