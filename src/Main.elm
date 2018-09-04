@@ -1,4 +1,4 @@
-module Main exposing (Image, Model, Msg(..), generateOptions, getRandomGif, gifDecoder, humanMessage, init, main, onKeyUp, subscriptions, toGiphyUrl, update, view)
+module Main exposing (Image, Model, Msg(..), getRandomGif, gifDecoder, humanMessage, init, main, onKeyUp, subscriptions, toGiphyUrl, update, view)
 
 import Browser
 import Html exposing (..)
@@ -7,7 +7,6 @@ import Html.Events exposing (..)
 import Http
 import Json.Decode as Decode
 import Url.Builder as Url
-
 
 
 -- MAIN
@@ -130,6 +129,8 @@ view : Model -> Html Msg
 view model =
     div []
         [ h1 [] [ text ("GIF finder for: " ++ model.topic) ]
+        , makePresetButton "cats"
+        , makePresetButton "memes"
         , br [] []
         , label [] [ text model.errorMessage ]
         , br [] []
@@ -139,7 +140,6 @@ view model =
                 (\key ->
                     if key == 13 then
                         MorePlease
-
                     else
                         SetTopic model.topic
                 )
@@ -147,9 +147,6 @@ view model =
             , value model.topic
             ]
             []
-        , select
-            [ on "change" (Decode.map PresetTopic Html.Events.targetValue) ]
-            (generateOptions [ "cats", "memes" ])
         , button [ onClick MorePlease ] [ text "More Please!" ]
         , br [] []
         , h3 [] [ text model.image.title ]
@@ -160,8 +157,8 @@ view model =
         ]
 
 
-generateOptions =
-    List.map (\str -> option [ value str ] [ text str ])
+makePresetButton str =
+    button [ onClick (PresetTopic str) ] [ text str ]
 
 
 
