@@ -14,7 +14,7 @@ run lambda { |env|
       },
       File.open('dist/app.js', File::RDONLY)
     ]
-  else
+  elsif path == "/"
     [
       200,
       {
@@ -22,6 +22,13 @@ run lambda { |env|
         'Cache-Control' => 'public, max-age=86400'
       },
       File.open('dist/index.html', File::RDONLY)
+    ]
+  else
+    [
+      400,
+      {
+      },
+      ["LOLNO. That route is a lie, you should get your money back :\'("]
     ]
   end
 }
