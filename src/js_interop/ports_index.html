@@ -17,6 +17,8 @@
     app.ports.log.subscribe(function (str) {
       console.log(str);
     })
+
+    app.ports.messageIn.send("hello from js a second time!");
   </script>
 </body>
 </html>

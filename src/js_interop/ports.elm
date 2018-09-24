@@ -46,10 +46,7 @@ init jsMessages =
 type Msg
     = SendMessage
     | UpdateMessage String
-
-
-
--- | RecieveMessage String
+    | ReceiveMessage String
 
 
 port log : Encode.Value -> Cmd msg
@@ -64,6 +61,9 @@ update msg model =
         UpdateMessage text ->
             ( { model | logMessage = text }, Cmd.none )
 
+        ReceiveMessage text ->
+            ( { model | jsMessages = model.jsMessages ++ [ text ] }, Cmd.none )
+
 
 
 -- SUBSCRIPTIONS
@@ -71,7 +71,15 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    messageIn parseJsMessage
+
+
+port messageIn : (Encode.Value -> msg) -> Sub msg
+
+
+parseJsMessage : Encode.Value -> Msg
+parseJsMessage =
+    Decode.decodeValue Decode.string >> Result.withDefault "" >> ReceiveMessage
 
 
 
@@ -82,7 +90,7 @@ view : Model -> Html Msg
 view model =
     div []
         [ h3 [] [ text "from js:\n" ]
-        , p [] [ text <| String.join "\n" model.jsMessages ]
+        , p [] <| List.map (\str -> div [] [ text str ]) model.jsMessages
         , div
             []
             [ input [ onInput UpdateMessage ]
