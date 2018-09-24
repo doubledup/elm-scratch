@@ -1,8 +1,10 @@
-module Main exposing (main)
+port module Main exposing (main)
 
 import Browser
 import Html exposing (..)
+import Html.Events exposing (..)
 import Json.Decode as Decode
+import Json.Encode as Encode
 
 
 
@@ -23,12 +25,16 @@ main =
 
 
 type alias Model =
-    { js_message : String }
+    { js_message : String
+    , logMessage : String
+    }
 
 
 init : Decode.Value -> ( Model, Cmd Msg )
 init js_message =
-    ( { js_message = Decode.decodeValue Decode.string js_message |> Result.withDefault "" }
+    ( { js_message = Decode.decodeValue Decode.string js_message |> Result.withDefault ""
+      , logMessage = ""
+      }
     , Cmd.none
     )
 
@@ -38,18 +44,25 @@ init js_message =
 
 
 type Msg
-    = SendMessage String
+    = SendMessage
+    | UpdateMessage String
 
 
 
 -- | RecieveMessage String
 
 
+port log : Encode.Value -> Cmd msg
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        SendMessage text ->
-            ( model, Cmd.none )
+        SendMessage ->
+            ( model, log (model.logMessage |> Encode.string) )
+
+        UpdateMessage text ->
+            ( { model | logMessage = text }, Cmd.none )
 
 
 
@@ -68,5 +81,15 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     div []
-        [ text <| "from js:" ++ model.js_message
+        [ text <|
+            "from js:"
+                ++ model.js_message
+        , div
+            []
+            [ input [ onInput UpdateMessage ]
+                []
+            , button
+                [ onClick SendMessage ]
+                [ text "Send to js" ]
+            ]
         ]

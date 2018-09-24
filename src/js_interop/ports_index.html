@@ -13,6 +13,10 @@
       node: document.getElementById("elm"),
       flags: "hello world from js!"
     });
+
+    app.ports.log.subscribe(function (str) {
+      console.log(str);
+    })
   </script>
 </body>
 </html>
