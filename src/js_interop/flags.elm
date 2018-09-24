@@ -76,13 +76,13 @@ view : Model -> Html Msg
 view model =
     let
         hour =
-            Time.toHour Time.utc model.time |> String.fromInt
+            Time.toHour Time.utc model.time |> String.fromInt |> String.padLeft 2 '0'
 
         minute =
-            Time.toMinute Time.utc model.time |> String.fromInt
+            Time.toMinute Time.utc model.time |> String.fromInt |> String.padLeft 2 '0'
 
         second =
-            Time.toSecond Time.utc model.time |> String.fromInt
+            Time.toSecond Time.utc model.time |> String.fromInt |> String.padLeft 2 '0'
     in
     div []
         [ h3 [] [ text <| String.join ":" [ hour, minute, second ] ]
