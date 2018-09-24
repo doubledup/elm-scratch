@@ -25,14 +25,14 @@ main =
 
 
 type alias Model =
-    { js_message : String
+    { jsMessages : List String
     , logMessage : String
     }
 
 
 init : Decode.Value -> ( Model, Cmd Msg )
-init js_message =
-    ( { js_message = Decode.decodeValue Decode.string js_message |> Result.withDefault ""
+init jsMessages =
+    ( { jsMessages = [ Decode.decodeValue Decode.string jsMessages |> Result.withDefault "" ]
       , logMessage = ""
       }
     , Cmd.none
@@ -81,9 +81,8 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     div []
-        [ text <|
-            "from js:"
-                ++ model.js_message
+        [ h3 [] [ text "from js:\n" ]
+        , p [] [ text <| String.join "\n" model.jsMessages ]
         , div
             []
             [ input [ onInput UpdateMessage ]
