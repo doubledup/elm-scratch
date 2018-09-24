@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>js interop: Ports</title>
+  <script src="ports_main.js"></script>
+</head>
+
+<body>
+  <div id="elm"></div>
+  <script>
+    var app = Elm.Main.init({
+      node: document.getElementById("elm"),
+      flags: "hello world from js!"
+    });
+  </script>
+</body>
+</html>
