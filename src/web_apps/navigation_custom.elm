@@ -3,7 +3,7 @@ module Main exposing (Model, Msg(..), init, main, subscriptions, update, view, v
 import Browser
 import Browser.Navigation as Nav
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as A
 import Url
 import Url.Parser exposing ((</>), map, oneOf, parse, s, string)
 
@@ -135,4 +135,4 @@ view model =
 
 viewLink : String -> Html msg
 viewLink path =
-    li [] [ a [ href path ] [ text path ] ]
+    li [] [ a [ A.href path ] [ text path ] ]
