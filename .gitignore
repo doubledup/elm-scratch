@@ -2,4 +2,5 @@ dist/
 elm-stuff/
 index.html
 **/*main.js
+minify/
 node_modules/
