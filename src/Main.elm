@@ -9,6 +9,7 @@ import Json.Decode as Decode
 import Url.Builder as Url
 
 
+
 -- MAIN
 
 
@@ -140,6 +141,7 @@ view model =
                 (\key ->
                     if key == 13 then
                         MorePlease
+
                     else
                         SetTopic model.topic
                 )
@@ -182,18 +184,9 @@ toGiphyUrl topic =
 gifDecoder : Decode.Decoder Image
 gifDecoder =
     Decode.map3 Image
-        (Decode.field
-            "data"
-            (Decode.field "image_url" Decode.string)
-        )
-        (Decode.field
-            "data"
-            (Decode.field "title" Decode.string)
-        )
-        (Decode.field
-            "data"
-            (Decode.field "caption" Decode.string)
-        )
+        (Decode.at [ "data", "image_url" ] Decode.string)
+        (Decode.at [ "data", "title" ] Decode.string)
+        (Decode.at [ "data", "caption" ] Decode.string)
 
 
 onKeyUp : (Int -> Msg) -> Attribute Msg
