@@ -15,7 +15,8 @@ RESPONSES = {
       200,
       {
         'Content-Type'  => 'text/javascript',
-        'Cache-Control' => 'public, max-age=86400'
+        'Cache-Control' => 'public, max-age=86400',
+        'Content-Encoding' => 'gzip'
       },
       'dist/app.js.gz'
     ],
