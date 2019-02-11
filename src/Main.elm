@@ -153,7 +153,7 @@ view model =
         , br [] []
         , h3 [] [ text model.image.title ]
         , br [] []
-        , img [ src model.image.url ] []
+        , img [ height 200, src model.image.url ] []
         , br [] []
         , label [] [ text model.image.caption ]
         ]
