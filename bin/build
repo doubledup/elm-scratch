@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 npx webpack
-gzip dist/app.js
+gzip -f dist/app.js
