@@ -17,7 +17,7 @@ module.exports = {
     rules: [
       {
         test: /\.html$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/],
         use: {
           loader: 'file-loader',
           options: {

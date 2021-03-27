@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-npx webpack
+npx webpack --mode production
 gzip -f dist/app.js
