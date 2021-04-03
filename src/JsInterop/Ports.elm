@@ -1,4 +1,4 @@
-port module Main exposing (main)
+port module JsInterop.Ports exposing (main)
 
 import Browser
 import Html exposing (..)
@@ -11,6 +11,7 @@ import Json.Encode as Encode
 -- MAIN
 
 
+main : Program Decode.Value Model Msg
 main =
     Browser.element
         { init = init
@@ -70,7 +71,7 @@ update msg model =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     messageIn parseJsMessage
 
 

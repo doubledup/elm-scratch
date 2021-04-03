@@ -1,8 +1,8 @@
-module Main exposing (Model, Msg(..), init, main, subscriptions, update, view, viewLink)
+module WebApps.NavigationCustom exposing (Model, Msg(..), init, main, subscriptions, update, view, viewLink)
 
 import Browser
 import Browser.Navigation as Nav
-import Html exposing (..)
+import Html exposing (Html, a, b, div, li, text, ul)
 import Html.Attributes as A
 import Url
 import Url.Parser exposing ((</>), map, oneOf, parse, s, string)
@@ -36,7 +36,7 @@ type alias Model =
 
 
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url key =
+init _ url key =
     ( Model key url Nothing, Cmd.none )
 
 

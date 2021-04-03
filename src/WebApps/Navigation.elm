@@ -1,4 +1,4 @@
-module Main exposing (Model, Msg(..), init, main, subscriptions, update, view, viewLink)
+module WebApps.Navigation exposing (Model, Msg(..), init, main, subscriptions, update, view, viewLink)
 
 import Browser
 import Browser.Navigation as Nav
@@ -34,7 +34,7 @@ type alias Model =
 
 
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url key =
+init _ url key =
     ( Model key url, Cmd.none )
 
 

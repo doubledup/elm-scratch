@@ -1,16 +1,16 @@
-module Main exposing (..)
+module ElmArch.FormsCustom exposing (..)
 
 import Browser
 import Html exposing (Html, div, input, label, text, button)
-import Html.Attributes exposing (value, type_, style, pattern, placeholder)
+import Html.Attributes exposing (value, type_, style, placeholder)
 import Html.Events exposing (onInput, onClick)
 import List
-import Regex exposing (fromString, contains)
 
 
 -- MAIN
 
 
+main : Program () Model Msg
 main =
     Browser.sandbox { init = init, update = update, view = view }
 
@@ -81,6 +81,7 @@ view model =
         ]
 
 
+labelledInput : String -> (String -> msg) -> String -> String -> Html msg
 labelledInput labelText inputHandler inputType inputValue =
     div []
         [ label [] [ text labelText ]
@@ -88,6 +89,7 @@ labelledInput labelText inputHandler inputType inputValue =
         ]
 
 
+viewValidation : { a | valid : Bool, message : String } -> Html msg
 viewValidation validationRecord =
     div
         [ style "color"
@@ -104,6 +106,7 @@ viewValidation validationRecord =
         ]
 
 
+validate : { a | password : String, confirmation : String } -> { valid : Bool, message : String }
 validate model =
     let
         validations =

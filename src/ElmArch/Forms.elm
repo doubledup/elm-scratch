@@ -1,4 +1,4 @@
-module Main exposing (Model, Msg(..), init, main, update, view, viewInput, viewValidation)
+module ElmArch.Forms exposing (Model, Msg(..), init, main, update, view, viewInput, viewValidation)
 
 import Browser
 import Html exposing (..)
@@ -9,6 +9,7 @@ import Html.Events exposing (onInput)
 -- MAIN
 
 
+main : Program () Model Msg
 main =
     Browser.sandbox { init = init, update = update, view = view }
 

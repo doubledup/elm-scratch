@@ -1,7 +1,7 @@
-module Main exposing (Model, Msg(..), init, main, update, view)
+module JsInterop.Flags exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
-import Html exposing (Attribute, Html, div, h3, input, text)
+import Html exposing (Html, div, h3, input, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import Json.Decode as Decode
@@ -12,6 +12,7 @@ import Time
 -- MAIN
 
 
+main : Program Decode.Value Model Msg
 main =
     Browser.element
         { init = init
@@ -64,7 +65,7 @@ update msg model =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     Time.every 1000 NewDateTime
 
 

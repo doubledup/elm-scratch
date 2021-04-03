@@ -1,8 +1,8 @@
-module Main exposing (Model, Msg(..), init, main, update, view)
+module ElmArch.ButtonsCustom exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
 import Html exposing (Html, button, div, input, text)
-import Html.Attributes exposing (type_, value)
+import Html.Attributes exposing (value)
 import Html.Events exposing (onClick, onInput)
 
 
