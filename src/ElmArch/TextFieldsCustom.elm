@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 
 
+
 -- MAIN
 
 
@@ -18,11 +19,13 @@ main =
 -- MODEL
 
 
-type alias Model = String
+type alias Model =
+    { text : String }
 
 
 init : Model
-init = ""
+init =
+    { text = "" }
 
 
 
@@ -34,9 +37,10 @@ type Msg
 
 
 update : Msg -> Model -> Model
-update msg _ =
+update msg model =
     case msg of
-        Change newContent -> newContent
+        Change newContent ->
+            { model | text = newContent }
 
 
 
@@ -46,7 +50,7 @@ update msg _ =
 view : Model -> Html Msg
 view model =
     div []
-        [ input [ placeholder "Text to reverse", value model, onInput Change ] []
-        , div [] [ text (String.reverse model) ]
-        , div [] [ text ("Length: " ++ (model |> String.length |> String.fromInt)) ]
+        [ input [ placeholder "Text to reverse", value model.text, onInput Change ] []
+        , div [] [ text (String.reverse model.text) ]
+        , div [] [ text ("Length: " ++ (model.text |> String.length |> String.fromInt)) ]
         ]
