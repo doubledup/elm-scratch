@@ -1,4 +1,4 @@
-module Main exposing (..)
+module CmdAndSub.Time exposing (..)
 
 import Browser
 import Html exposing (..)
@@ -9,6 +9,7 @@ import Time
 -- MAIN
 
 
+main : Program () Model Msg
 main =
     Browser.element
         { init = init
@@ -63,7 +64,7 @@ update msg model =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     Time.every 1000 Tick
 
 

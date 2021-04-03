@@ -1,4 +1,4 @@
-module Main exposing (..)
+module CmdAndSub.HttpJson exposing (..)
 
 import Browser
 import Html exposing (..)
@@ -12,6 +12,7 @@ import Url.Builder as Url
 -- MAIN
 
 
+main : Program () Model Msg
 main =
     Browser.element
         { init = init
@@ -73,7 +74,7 @@ update msg model =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     Sub.none
 
 

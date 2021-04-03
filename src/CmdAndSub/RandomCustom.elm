@@ -1,4 +1,4 @@
-module Main exposing (..)
+module CmdAndSub.RandomCustom exposing (..)
 
 import Browser
 import Html exposing (..)
@@ -12,6 +12,7 @@ import Process
 -- MAIN
 
 
+main : Program () Model Msg
 main =
     Browser.element
         { init = init
@@ -78,6 +79,7 @@ update msg model =
             )
 
 
+rollDice : Cmd Msg
 rollDice =
     Cmd.batch
         [ Random.generate NewFace (Random.int 1 6)
@@ -98,7 +100,7 @@ rollDice =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     Sub.none
 
 

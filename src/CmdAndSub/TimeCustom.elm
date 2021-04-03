@@ -1,4 +1,4 @@
-module Main exposing (..)
+module CmdAndSub.TimeCustom exposing (..)
 
 import Browser
 import Html exposing (..)
@@ -11,6 +11,7 @@ import Time
 -- MAIN
 
 
+main : Program () Model Msg
 main =
     Browser.element
         { init = init
