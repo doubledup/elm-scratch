@@ -34,6 +34,7 @@ init =
 
 type Msg
     = Increment
+    | IncrementBy Int
     | Decrement
     | Reset
     | Set42
@@ -45,6 +46,9 @@ update msg model =
     case msg of
         Increment ->
             { model | displayNumber = model.displayNumber + 1 }
+
+        IncrementBy increment ->
+            { model | displayNumber = model.displayNumber + increment }
 
         Decrement ->
             { model | displayNumber = model.displayNumber - 1 }
@@ -67,7 +71,8 @@ view : Model -> Html Msg
 view model =
     div []
         [ div []
-            [ button [ onClick Increment ] [ text "+" ]
+            [ incrementButton 10
+            , button [ onClick Increment ] [ text "+" ]
             , div [] [ text (String.fromInt model.displayNumber) ]
             , button [ onClick Decrement ] [ text "-" ]
             ]
@@ -83,3 +88,8 @@ view model =
                 []
             ]
         ]
+
+
+incrementButton : Int -> Html Msg
+incrementButton n =
+    button [ onClick (IncrementBy n) ] [ text <| "Add " ++ String.fromInt n ]
